@@ -1,19 +1,18 @@
 name: Deploy to SFTP
 
-on:
+on: [push]
   push:
     branches:
       - main  # or any branch you want to watch for deploys
   workflow_dispatch:
 
 jobs:
-  sftp-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Upload via SFTP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}

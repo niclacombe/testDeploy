@@ -17,4 +17,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /home/dh_ci77k2/niclacombe.ca/test
+          server-dir: /home/dh_ci77k2/niclacombe.ca/test/

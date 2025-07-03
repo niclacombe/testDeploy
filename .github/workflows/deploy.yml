@@ -25,6 +25,6 @@ jobs:
             -o UserKnownHostsFile=/dev/null \
             -b - ${{ secrets.FTP_USERNAME }}@${{ secrets.FTP_SERVER }} <<EOF
           mkdir niclacombe.ca/test
-          put -r ./* niclacombe.ca/test
+          put -r ./* niclacombe.ca/test/
           bye
           EOF

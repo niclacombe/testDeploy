@@ -1,24 +1,16 @@
-name: Deploy to FTP
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
+name: scp files
+on: [push]
 jobs:
-  ftp-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get latest code
-        uses: actions/checkout@v4
-
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - uses: actions/checkout@v4
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v1
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /home/dh_ci77k2/niclacombe.ca/test/
-          port: 21
-          protocol: ftp
+          port: 22
+          source: "./build/*"
+          target: /home/dh_ci77k2/niclacombe.ca/test/

@@ -1,4 +1,4 @@
-name: Deploy via SFTP
+name: 🚀 Deploy via FTPS
 
 on:
   push:
@@ -10,15 +10,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
-      - name: Upload files via SFTP
-        uses: appleboy/scp-action@v0.1.7
+      - name: 📂 Upload files via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.FTP_SERVER }}      # same secret for hostname
-          username: ${{ secrets.FTP_USERNAME }} # same secret for username
-          password: ${{ secrets.FTP_PASSWORD }} # same secret for password (or use 'key' for SSH key)
-          port: 22                              # standard SFTP port
-          source: ./*                   # adjust this if needed
-          target: /home/dh_ci77k2/niclacombe.ca/test/    # adjust remote path accordingly
-
+          server: ${{ secrets.FTP_SERVER }}            # same secret for hostname
+          username: ${{ secrets.FTP_USERNAME }}        # same secret for username
+          password: ${{ secrets.FTP_PASSWORD }}        # same secret for password
+          protocol: ftp                                # 🔥 switch from sftp to ftps
+          port: 21                                     # standard explicit FTPS port
+          server-dir: /niclacombe.ca/test/             # remote folder (adjust if needed)
+          local-dir: ./                                # folder to upload (adjust if you want ./build or another folder)

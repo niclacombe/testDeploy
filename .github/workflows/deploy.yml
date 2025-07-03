@@ -24,7 +24,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -b - ${{ secrets.FTP_USERNAME }}@${{ secrets.FTP_SERVER }} <<EOF
-          mkdir -p home/dh_ci77k2/niclacombe.ca/test/
+          mkdir -p /home/dh_ci77k2/niclacombe.ca/test/
           put -r ./* niclacombe.ca/test/
           bye
           EOF

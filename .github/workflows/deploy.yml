@@ -12,12 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Upload via sftp CLI
-        env:
-          SFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          sshpass -p "$SFTP_PASSWORD" sftp -oBatchMode=no -b - ${{ secrets.FTP_USERNAME }}@${{ secrets.FTP_SERVER }} <<EOF
-          put -r ./build/* /niclacombe.ca/test/
-          bye
-          EOF
+      - name: Upload files via SFTP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.FTP.USERNAME }}      # same secret for hostname
+          username: ${{ secrets.FTP_USERNAME }} # same secret for username
+          password: ${{ secrets.FTP_PASSWORD }} # same secret for password (or use 'key' for SSH key)
+          port: 22                              # standard SFTP port
+          source: "./*"                   # adjust this if needed
+          target: "/niclacombe.ca/test/"    # adjust remote path accordingly
 

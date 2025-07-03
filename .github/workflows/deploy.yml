@@ -1,23 +1,21 @@
-name: Deploy to SFTP
+name: Deploy to FTP
 
 on:
   push:
     branches:
-      - main  # or any branch you want to watch for deploys
+      - main
   workflow_dispatch:
 
 jobs:
-  sftp-deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Upload via SFTP
-        uses: appleboy/scp-action@v1
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          host: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 22
-          source: "./build/*"
-          target: /home/dh_ci77k2/niclacombe.ca/test/
+          server-dir: /home/dh_ci77k2/niclacombe.ca/test/

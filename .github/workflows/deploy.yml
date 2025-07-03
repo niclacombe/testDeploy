@@ -1,11 +1,19 @@
-name: scp files
-on: [push]
+name: Deploy via SCP
+
+on:
+  push:
+    branches:
+      - main  # deploy only when pushing to main branch
+  workflow_dispatch:    # allow manual runs from the GitHub UI
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Copy files via SSH
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy files via SFTP
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.FTP_SERVER }}

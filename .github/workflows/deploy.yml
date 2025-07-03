@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /home/dh_ci77k2/niclacombe.ca/test/
-          port: 22
-          protocol: ftps
+          port: 21
+          protocol: ftp

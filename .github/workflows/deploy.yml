@@ -1,4 +1,4 @@
-name: 🚀 Deploy via FTP
+name: 🚀 Deploy via SFTP CLI
 
 on:
   push:
@@ -10,16 +10,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 📂 Upload files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: niclacombe.ca                        # same secret for hostname
-          username: dh_ci77k2                          # same secret for username
-          password: "*AnGoRu*jJ"                         # same secret for password
-          protocol: ftp                                # 🔥 switch from sftp to ftp
-          port: 21                                     # standard explicit FTPS port
-          server-dir: /niclacombe.ca/test/             # remote folder (adjust if needed)
-          local-dir: ./                                # folder to upload (adjust if you want ./build or another folder)
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Upload files via sftp
+        env:
+          SFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sshpass -p "$SFTP_PASSWORD" sftp -oBatchMode=no -b - ${{ secrets.FTP_USERNAME }}@${{ secrets.FTP_SERVER }} <<EOF
+          mkdir -p home/dh_ci77k2/niclacombe.ca/test
+          put -r ./* home/dh_ci77k2/niclacombe.ca/test
+          bye
+          EOF

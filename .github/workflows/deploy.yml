@@ -21,4 +21,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }} # same secret for password (or use 'key' for SSH key)
           port: 22                              # standard SFTP port
           source: "./*"                   # adjust this if needed
-          target: "test/"    # adjust remote path accordingly
+          target: "/test/"    # adjust remote path accordingly

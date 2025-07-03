@@ -17,4 +17,4 @@ jobs:
         protocol: ftps
         port: 21
         server-dir: /home/dh_ci77k2/niclacombe.ca/test/
-        local-dir: ./*
+        local-dir: ./

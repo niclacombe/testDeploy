@@ -16,9 +16,9 @@ jobs:
       - name: Upload files via SFTP
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: "ftp.niclacombe.ca"       # same secret for hostname
+          host: "niclacombe.ca"       # same secret for hostname
           username: ${{ secrets.FTP_USERNAME }} # same secret for username
           password: ${{ secrets.FTP_PASSWORD }} # same secret for password (or use 'key' for SSH key)
           port: 22                              # standard SFTP port
           source: "./*"                   # adjust this if needed
-          target: "/test/"    # adjust remote path accordingly
+          target: "/home/dh_ci77k2/niclacombe.ca/test/"    # adjust remote path accordingly
